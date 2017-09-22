@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="limited" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--By world -->
+    <!--arg name="world_name" value="$(find grasp_ws_bringup)/worlds/table_hammer.world"/-->
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+<!-- By Xacro -->
+<!-- send table urdf to param server -->
+<!--param name="shelv_description" command="$(find xacro)/xacro.py $(find shelve_models)/urdf/shelv.xacro" /-->
+<param name="shelv_description" command="$(find xacro)/xacro.py $(find surface_models)/urdf/shelves/W_0.5_h1_0.5_d1_0.3_h2_0.7_d2_0.1.xacro" />
+
+
+<node name="spawn_shelv" pkg="gazebo_ros" type="spawn_model" args="-urdf -param shelv_description -z 1 -model shelv_model" respawn="false" output="screen" />
+
+<!--By URDF -->
+<!--node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find shelve_models)/urdf/workcell.urdf -urdf -z 1 -model object" /-->
+
+</launch>
+

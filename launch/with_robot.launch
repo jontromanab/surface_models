@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="limited" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="robot" default="fetch"/>
+    <arg name="debug" default="false"/>
+    <arg name="headless" default="false"/>
+
+
+
+  <!-- Start Gazebo with a blank world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- Oh, you wanted a robot? -->
+  <include file="$(find fetch_gazebo)/launch/include/$(arg robot).launch.xml" />
+
+
+<!-- By Xacro -->
+<!-- send table urdf to param server -->
+<!--param name="shelv_description" command="$(find xacro)/xacro.py $(find shelve_models)/urdf/shelv.xacro" /-->
+<param name="shelv_description" command="$(find xacro)/xacro.py $(find surface_models)/urdf/shelves/W_0.5_h1_0.5_d1_0.3_h2_0.7_d2_0.1.xacro" />
+
+
+<node name="spawn_shelv" pkg="gazebo_ros" type="spawn_model" args="-urdf -param shelv_description  -x 0.6 -z 1 -model shelv_model" respawn="false" output="screen" />
+
+<!--By URDF -->
+<!--node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find shelve_models)/urdf/workcell.urdf -urdf -z 1 -model object" /-->
+
+</launch>
+

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="file" />
+  <arg name="limited" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--By world -->
+    <!--arg name="world_name" value="$(find grasp_ws_bringup)/worlds/table_hammer.world"/-->
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+<!-- By Xacro -->
+<!-- send table urdf to param server -->
+  <!--param name="table_description" command="$(find xacro)/xacro.py $(find table_models)/urdf/workcell.xacro" /-->
+   <!--param name="table_description" command="$(arg file)" /-->
+    <!-- push robot_description to factory and spawn robot in gazebo -->
+ <!--node name="spawn_table" pkg="gazebo_ros" type="spawn_model" args="-urdf -param table_description -z 1 -model table_model" respawn="false" output="screen" /-->
+
+<!--By URDF -->
+<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find surface_models)/urdf/tables/$(arg file) -urdf -z 1 -model object" />
+
+</launch>

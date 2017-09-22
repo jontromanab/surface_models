@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<robot name="lab_side_whiteboard" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!-- Property List -->
+<xacro:property name="pi" value="3.1415926535897931" />
+<xacro:property name="wall_length" value="3.5" />
+<xacro:property name="wall_height" value="2.5" />
+<xacro:property name="wall_width" value="0.2" />
+
+<xacro:property name="board_length" value="1.4732" />
+<xacro:property name="board_height" value="0.9271" />
+<xacro:property name="board_width" value="0.03" />
+
+<xacro:property name="board_height_z" value="1.20015" />
+
+
+
+<!-- Color macros -->
+<xacro:macro name="material_yellow_wall">
+        <material name="yellow_transparent">
+                <color rgba="${169/255} ${145/255} ${14/255} 0.4" />
+        </material>
+</xacro:macro>
+
+
+<!-- Base Link -->
+<link name = "wall">
+<inertial>
+ <origin xyz = "0 0 0" />
+ <mass value = "1.0" />
+ <inertia ixx="1" ixy="0"  ixz="0"
+               iyy="1" iyz="0"
+               izz="1" />
+ </inertial>
+<visual>
+  <origin xyz = "0 0 0" />
+  <geometry>
+     <box size="${wall_width} ${wall_length}  ${wall_height}"/>
+  </geometry>
+  <material name="yellow_transparent"/>
+</visual>
+<collision>
+  <origin xyz = "0 0 0" />
+  <geometry>
+     <box size="${wall_width} ${wall_length}  ${wall_height}"/>
+  </geometry>
+  <material name="yellow_transparent"/>
+</collision>
+</link>
+
+<!-- Board Link-->
+<link name = "board">
+<inertial>
+ <origin xyz = "0 0 ${-wall_height/2 + board_height_z}" />
+ <mass value = "1.0" />
+ <inertia ixx="1" ixy="0"  ixz="0"
+               iyy="1" iyz="0"
+               izz="1" />
+ </inertial>
+<visual>
+  <origin xyz = "0 0 0" />
+  <geometry>
+     <box size="${board_width} ${board_length} ${board_height}"/>
+  </geometry>
+  <material name="yellow_transparent"/>
+</visual>
+<collision>
+  <origin xyz = "0 0 0" />
+  <geometry>
+     <box size="${board_width} ${board_length} ${board_height}"/>
+  </geometry>
+  <material name="yellow_transparent"/>
+</collision>
+</link>
+
+
+<!-- wall to board-->
+<joint name="wall_to_board" type="fixed">
+  <parent link="wall"/>
+  <child link="board"/>
+  <axis xyz="0 0 0"/>
+  <origin rpy="0.0 0.0 0.0" xyz="${wall_width/2} 0.0 ${-wall_height/2 + board_height_z}"/>
+</joint>
+
+
+
+
+<gazebo reference="wall">
+   <material>Gazebo/CeilingTiled   </material>
+   <mu1>50.0</mu1>
+   <mu2>50.0</mu2>
+   <kp>1000000.0</kp>
+   <kd>1.0</kd>
+</gazebo>
+
+<gazebo reference="board">
+   <material>Gazebo/White </material>
+</gazebo>
+
+
+
+
+
+
+</robot>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

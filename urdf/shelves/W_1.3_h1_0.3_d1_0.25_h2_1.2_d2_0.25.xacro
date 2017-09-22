@@ -1,0 +1,110 @@
+<?xml version="1.0" ?> 
+<robot name="shelf_1.3_0.3_0.25_1.2_0.25" xmlns:xacro="http://ros.org/wiki/xacro"> 
+
+
+<!-- Property List --> 
+<xacro:property name="pi" value="3.1415926535897931" />
+<xacro:property name="shelf_base_height" value="1.5" />
+<xacro:property name="shelf_thickness" value="0.05" />
+<xacro:property name="shelf_base_width" value="1.3" />
+
+
+<xacro:property name="shelf1_height" value="0.3" />
+<xacro:property name="shelf1_depth" value="0.25" />
+
+
+<xacro:property name="shelf2_height" value="1.2" />
+<xacro:property name="shelf2_depth" value="0.25" />
+
+
+<!-- Color macros --> 
+<xacro:macro name="material_brown_transparent"> 
+ 	<material name="brown_transparent">
+		<color rgba="${139/255} ${69/255} ${19/255} 0.4" />
+	</material>
+</xacro:macro> 
+
+<!-- Base Link --> 
+<link name = "shelf_base">
+<inertial> 
+ <origin xyz = "0 0 0" /> 
+ <mass value = "1.0" /> 
+ <inertia ixx = "1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+ </inertial>
+<visual>
+  <geometry>
+ 	<box size="${shelf_base_width} ${shelf_thickness} ${shelf_base_height}"/>
+  </geometry>
+  <material name="brown_transparent"/>
+</visual>
+<collision>
+  <geometry>
+ 	<box size="${shelf_base_width} ${shelf_thickness} ${shelf_base_height}"/>
+  </geometry>
+  <material name="brown_transparent"/>
+</collision>
+</link>
+
+<!-- Base To First shelf link Joint--> 
+<joint name="base_to_shelf1" type="fixed"> 
+  <parent link="shelf_base"/>
+  <child link="shelf_1"/> 
+  <axis xyz="0 0 0"/>
+  <origin rpy="0.0 0.0 0.0" xyz="0.0 ${-shelf1_depth/2} ${-shelf_base_height/2 + shelf1_height}"/>
+</joint>
+
+<!-- First shelf Link--> 
+<link name = "shelf_1">
+<visual>
+  <geometry>
+ 	<box size="${shelf_base_width} ${shelf1_depth} ${shelf_thickness}"/>
+  </geometry>
+  <material name="brown_transparent"/>
+</visual>
+<collision>
+  <geometry>
+ 	<box size="${shelf_base_width} ${shelf1_depth} ${shelf_thickness}"/>
+  </geometry>
+  <material name="brown_transparent"/>
+</collision>
+</link>
+
+<!-- Base To Second shelf link Joint--> 
+<joint name="base_to_shelf2" type="fixed"> 
+  <parent link="shelf_base"/>
+  <child link="shelf_2"/> 
+  <axis xyz="0 0 0"/>
+  <origin rpy="0.0 0.0 0.0" xyz="0.0 ${-shelf2_depth/2} ${-shelf_base_height/2 + shelf2_height}"/>
+</joint>
+
+<!-- Second shelf Link--> 
+<link name = "shelf_2">
+<visual>
+  <geometry>
+ 	<box size="${shelf_base_width} ${shelf2_depth} ${shelf_thickness}"/>
+  </geometry>
+  <material name="brown_transparent"/>
+</visual>
+<collision>
+  <geometry>
+ 	<box size="${shelf_base_width} ${shelf2_depth} ${shelf_thickness}"/>
+  </geometry>
+  <material name="brown_transparent"/>
+</collision>
+</link>
+
+<gazebo reference="shelf_base">
+   <material>Gazebo/Wood</material>
+</gazebo>
+
+<gazebo reference="shelf_1">
+   <material>Gazebo/Wood</material>
+</gazebo>
+
+<gazebo reference="shelf_2">
+   <material>Gazebo/Wood</material>
+</gazebo>
+
+
+
+</robot>
