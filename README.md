@@ -13,7 +13,7 @@ urdf models of various surfaces. Tables and whiteboards for cleaning and shelves
 2. lab_side_whiteboard (near Herb)
 
 ### shelves ###
-shelves can be automatically created from the script ```create_shelves.py```
+Shelves can be automatically created from the script ```create_shelves.py```
 Some of the automatically generated shelves are in the urdf folder
 
 To view individual models, you can do one of them:
