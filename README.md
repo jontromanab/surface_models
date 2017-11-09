@@ -9,8 +9,8 @@ urdf models of various surfaces. Tables and whiteboards for cleaning and shelves
 4. lab_wood_table (small table for Fetch experiments)
 
 ### Whiteboards(HCR lab) ###
-1. Lab_main_whiteboard (on the wall)
-2. lab_side_whiteboard (near Herb)
+1. Lab_main_whiteboard 
+2. lab_side_whiteboard 
 
 ### shelves ###
 Shelves can be automatically created from the script ```create_shelves.py```
